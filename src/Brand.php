@@ -51,6 +51,21 @@
             $GLOBALS['DB']->exec("DELETE FROM brands;");
         }
 
+        static function findById()
+        {
+
+        }
+
+        function addStore($store)
+        {
+
+        }
+
+        function getStores()
+        {
+            
+        }
+
 
     }
 
