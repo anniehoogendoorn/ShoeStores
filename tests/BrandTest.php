@@ -6,7 +6,7 @@
     */
 
     require_once 'src/Brand.php';
-    require_once 'src/Brand.php';
+    require_once 'src/Store.php';
 
     $server = 'mysql:host=localhost:8889;dbname=shoes_test';
     $username = 'root';
@@ -98,6 +98,56 @@
             //Assert
             $this->assertEquals([], $result);
         }
+
+        function testAddStore()
+        {
+            //Arrange
+            $brand_name = "Brand 1";
+            $test_brand = new Brand($brand_name);
+            $test_brand->save();
+
+            $name2 = "Brand 2";
+            $test_brand2 = new Brand($name2);
+            $test_brand2->save();
+
+            $name = "Shoe Store 1";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store], $result);
+        }
+
+        function testGetStores()
+        {
+            //Arrange
+            $name = "Shoe Store 1";
+            $test_store = new Store($name);
+            $test_store->save();
+
+            $name = "Shoe Store 2";
+            $test_store2 = new Store($name2);
+            $test_store2->save();
+
+            $brand_name = "Brand 1";
+            $test_brand = new Brand($brand_name);
+            $test_brand->save();
+
+
+            //Act
+            $test_brand->addStore($test_store);
+            $test_brand->addStore($test_store2);
+
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
 
 
 
