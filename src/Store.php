@@ -32,7 +32,7 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        //Return all stores from the database table
+        //Return all stores that are stored in the database table and save to an array as Store Objects
         static function getAll()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT * FROM stores;");
@@ -81,7 +81,7 @@
             $GLOBALS['DB']->exec("DELETE FROM stores WHERE id = {$this->getId()};");
             // $GLOBALS['DB']->exec("DELETE FROM stores_brands WHERE store_id = {$this->getId()};");
         }
-        
+
 
         // //Add a brand to a specific store and save in the join table
         // function addBrand($brand)
