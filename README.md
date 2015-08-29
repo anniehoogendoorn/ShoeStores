@@ -34,6 +34,12 @@ you can access your MySQL terminal by entering:
 `> CREATE TABLE stores_brands (id serial PRIMARY KEY, store_id int, brand_id int);`
 
 To recreate the Mysql shoes_test database, follow these steps:
+1. On your home computer, open MAMP and click "Start Servers". On Epicodus computers, in the Bash terminal enter: `$ apachectl start`
+2. Use your browser to open `localhost:8888/phpmyadmin`, or if you're at Epicodus `localhost:8080/phpmyadmin`.
+3. On the left sidebar of the phpMyAdmin screen select the `shoes` database and a new screen will appear. This view shows us our tables.
+4. Select Operations from the tabs at the top of the screen.
+5. In the box labelled `Copy database to:` we enter the name of our new database: shoes_test.
+6. Click Go and you'll see a new database has appeared in the sidebar called `shoes_test`.
 
 
 ## Technologies Used
