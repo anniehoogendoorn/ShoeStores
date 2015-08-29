@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ store.getName }}</h1>
+
+            {% if brands is not empty %}
+                <p>Here are the brands for this store:</p>
+                <ul>
+                    {% for brand in brands %}
+                        <li>{{ brand.getName }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <h4>Add a brand</h4>
+
+            <form action='/brands' method='post' class="form-inline">
+                <div class='form-group'>
+
+                    <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
+                    <label for='name'>Brand Name</label>
+                    <input id='name' name='name' class='form-control' type='text'>
+                </div>
+
+
+                <button type='submit' class='btn btn-info'>Add brand</button>
+            </form>
+        </div>
+
+    </body>
+</html>

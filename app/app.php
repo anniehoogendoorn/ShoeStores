@@ -38,9 +38,10 @@
     });
 
     //Get a specific store page
-    $app->get('/store/{id}', function() use ($app) {
-        
-
+    $app->get('/store/{id}', function($id) use ($app) {
+        $store = Store::findById($id);
+        $brands = $store->getBrands();
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' =>$brands));
     });
 
     return $app;
