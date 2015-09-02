@@ -5,7 +5,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>{{ store.getName }}</h1>
+            <h1>Name{{ store.getName }}</h1>
 
             {% if brands is not empty %}
                 <p>Here are the brands for this store:</p>
@@ -16,19 +16,11 @@
                 </ul>
             {% endif %}
 
-            <h4>Add a brand</h4>
+            
 
-            <form action='/brands' method='post' class="form-inline">
-                <div class='form-group'>
+            <p><a href='/store/{{ store.getId }}/edit'>Edit this store name</a></p>
 
-                    <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
-                    <label for='name'>Brand Name</label>
-                    <input id='name' name='name' class='form-control' type='text'>
-                </div>
-
-
-                <button type='submit' class='btn btn-info'>Add brand</button>
-            </form>
+            <p><a href='/'>Home</a></p>
         </div>
 
     </body>

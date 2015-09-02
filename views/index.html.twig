@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class='container'>
-            <h1>Local Shoe Stores</h1>
+            <h1>Local Shoe Stores and Brands</h1>
 
             {% if stores is not empty %}
                 <p>Here are all of your shoe stores:</p>
@@ -21,7 +21,7 @@
 
             <h3>Add a new store:</h3>
 
-            <form action="/shoe_stores" method="post">
+            <form action="/add_store" method="post">
                 <div class='form-group'>
                     <label for="name">Store name:</label>
                     <input id="name" name="name" class='form-control' type="text">
@@ -32,6 +32,31 @@
             <form action='/delete_stores' method='post'>
                 <button type='submit' class='btn btn-danger'>Clear All </button>
             </form>
+
+            {% if brands is not empty %}
+                <p>Here are all of your brands:</p>
+                    <ul>
+                        {% for brand in brands %}
+                            <li><a href='/brands/{{ brand.getId }}'>{{ brand.getName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You have no brands yet!</p>
+            {% endif %}
+
+            <h3>Add a brand:</h3>
+
+                <form action='/brands' method='post'>
+                    <div class='form-group'>
+                        <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
+                        <label for='name'>Brand Name</label>
+                        <input id='name' name='name' class='form-control' type='text'>
+                    </div>
+
+                    <button type='submit' class='btn btn-info'>Add brand</button>
+                </form>
+
+
 
         </div>
     </body>

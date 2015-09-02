@@ -129,7 +129,7 @@
             $test_store = new Store($name);
             $test_store->save();
 
-            $name = "Shoe Store 2";
+            $name2 = "Shoe Store 2";
             $test_store2 = new Store($name2);
             $test_store2->save();
 
