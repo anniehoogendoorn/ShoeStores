@@ -16,13 +16,13 @@
                 </ul>
             {% endif %}
 
-            <form action='/store/{id}/add_brand' method='post'>
+            <form action='/brand/{{ brand.getid }}/add_store' method='post'>
                 <div class='form-group'>
-                    <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
-                    <label for='brand_id'>Add a brand</label>
-                    <select id='brand_id' name='name' class='selectpicker' type='text'>
-                        {% for brand in brands %}
-                            <option value='{{ brand.getId }}'>{{ brand.getName }}</option>
+                    <input id='brand_id' name='brand_id' type='hidden' value='{{ brand.getId() }}'>
+                    <label for='store_id'>Add a store</label>
+                    <select id='store_id' name='store_id' class='selectpicker' type='text'>
+                        {% for store in all_stores %}
+                            <option value='{{ store.getId() }}'>{{ store.getName }}</option>
                         {% endfor %}
                     </select>
                 </div>

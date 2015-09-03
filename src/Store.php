@@ -9,6 +9,7 @@
         {
             $this->name = $name;
             $this->id = $id;
+            // var_dump($id);
         }
 
         function setName($new_name)
@@ -30,6 +31,7 @@
         {
             $GLOBALS['DB']->exec("INSERT INTO stores (name) VALUES ('{$this->getName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
+            var_dump($this->id);
         }
 
         //Return all stores that are stored in the database table and save to an array as Store Objects
@@ -51,11 +53,9 @@
             $GLOBALS['DB']->exec("DELETE FROM stores;");
         }
 
-        //Try searching for id with {SELECT FROM stores WHERE - see update method}
+
         static function findById($search_id)
         {
-            // $found_store = $GLOBALS['DB']->query("SELECT FROM stores WHERE id = {$this->getId()};");
-            // $store =
 
             $found_store = null;
             $stores = Store::getAll();

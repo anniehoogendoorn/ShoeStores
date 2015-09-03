@@ -53,10 +53,10 @@
     //Get page of a specific store
     $app->get('/store/{id}', function($id) use ($app) {
         $store = Store::findById($id);
-        // $all_brands = $store->getBrands();
-        $brands = Brand::getAll($store->getBrands());
+        $brands = $store->getBrands();
+        $all_brands = Brand::getAll();
 
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands, 'all_brands' => $all_brands));
     });
 
     //Get page of specific brand
@@ -65,28 +65,43 @@
         // $all_stores = $brand->getStores();
         $stores = Store::getAll();
 
-        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => Store::getAll()));
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores));
 
     });
 
-    //Add a brand to specific store page
+    //Add a brand to specific store
     $app->post('/store/{id}/add_brand', function($id) use ($app) {
-        $store = Store::findById($_POST['store_id']);
+        $store = Store::findById($id);
+    $brand_id = $_POST['brand_id'];
+    var_dump($brand_id);
         $brand = Brand::findById($_POST['brand_id']);
+        var_dump($brand);
         $store->addBrand($brand);
         $all_brands = $store->getBrands();
         // $brands = Brand::getAll();
 
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => Brand::getAll()));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands, 'all_brands' => $all_brands));
+    });
+
+    //Add a store to specific brand
+    $app->post('/brand/{id}/add_store', function($id) use ($app) {
+        $brand = Brand::findById($_POST['brand_id']);
+        $store = Store::findById($_POST['store_id']);
+        $brand->addStore();
+        // $all_stores = $brand->getStores();
+        $stores = Brand::getAll();
+
+    return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores));
+
     });
 
 
-
-    //Get page to edit one single store
-    $app->get('/store/{id}/edit', function($id) use ($app) {
-        $store = Store::findById($id);
-        return $app['twig']->render('store_edit.html.twig', array('store' => $store));
-    });
+    //
+    // //Get page to edit one single store
+    // $app->get('/store/{id}/edit', function($id) use ($app) {
+    //     $store = Store::findById($id);
+    //     return $app['twig']->render('store_edit.html.twig', array('store' => $store));
+    // });
     //
     // //Edit one single store name
     // $app->patch('/store/{id}', function($id) use ($app) {

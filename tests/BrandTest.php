@@ -99,6 +99,26 @@
             $this->assertEquals([], $result);
         }
 
+        function testFindById()
+        {
+            //Arrange
+            $name = "Brand 1";
+            $test_brand = new Brand($name);
+            $test_brand->save();
+
+            $name2 = "Brand 2";
+            $test_brand2 = new Brand($name2);
+            $test_brand2->save();
+
+            //Act
+            $search_id = $test_brand->getId();
+            $result = Brand::findById($search_id);
+
+            //Assert
+            $this->assertEquals($test_brand, $result);
+
+        }
+
         function testAddStore()
         {
             //Arrange

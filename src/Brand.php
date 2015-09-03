@@ -51,8 +51,17 @@
             $GLOBALS['DB']->exec("DELETE FROM brands;");
         }
 
-        static function findById()
+        static function findById($search_id)
         {
+            $found_brand = null;
+            $brands = Brand::getAll();
+            foreach($brands as $brand) {
+                $brand_id = $brand->getId();
+                if ($brand_id == $search_id) {
+                    $found_brand = $brand;
+                }
+                return $found_brand;
+            }
 
         }
 
@@ -66,7 +75,8 @@
             $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM
                 brands JOIN stores_brands ON (brands.id = stores_brands.brand_id)
                     JOIN stores ON (stores_brands.store_id = stores.id)
-                    WHERE brands.id = {$this->getId()};");
+                    WHERE brands.id = {$this->getId()};
+                    ORDER BY stores.name;");
 
             $stores = array();
             foreach($returned_stores as $store) {
