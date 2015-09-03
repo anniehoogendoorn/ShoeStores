@@ -41,25 +41,46 @@
     //Delete all stores from index page
     $app->post('delete_stores', function() use ($app) {
         Store::deleteAll();
-        return $app['twig']->render('index.html.twig');
+        return $app['twig']->render('index.html.twig', array( 'brands' => Brand::getAll()));
+    });
+
+    //Delete all brands from index page
+    $app->post('delete_brands', function() use ($app) {
+        Brand::deleteAll();
+        return $app['twig']->render('index.html.twig', array( 'stores' => Store::getAll()));
     });
 
     //Get page of a specific store
     $app->get('/store/{id}', function($id) use ($app) {
         $store = Store::findById($id);
-        $brands = Store::getBrands($store);
-    return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands));
+        // $all_brands = $store->getBrands();
+        $brands = Brand::getAll($store->getBrands());
+
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands));
+    });
+
+    //Get page of specific brand
+    $app->get('/brand/{id}', function($id) use ($app) {
+        $brand = Brand::findById($id);
+        // $all_stores = $brand->getStores();
+        $stores = Store::getAll();
+
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => Store::getAll()));
+
     });
 
     //Add a brand to specific store page
     $app->post('/store/{id}/add_brand', function($id) use ($app) {
-        $store = Store::findById($id);
-        $brand = new Brand($_POST['name']);
+        $store = Store::findById($_POST['store_id']);
+        $brand = Brand::findById($_POST['brand_id']);
         $store->addBrand($brand);
-        $brands = $store->getBrands();
+        $all_brands = $store->getBrands();
+        // $brands = Brand::getAll();
 
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => Brand::getAll()));
     });
+
+
 
     //Get page to edit one single store
     $app->get('/store/{id}/edit', function($id) use ($app) {

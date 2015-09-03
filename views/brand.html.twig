@@ -5,13 +5,13 @@
     </head>
     <body>
         <div class="container">
-            <h1>{{ store.getName }}</h1>
+            <h1>Brand {{ brand.getName }}</h1>
 
-            {% if brands is not empty %}
-                <p>This store offers the following brands:</p>
+            {% if stores is not empty %}
+                <p>This brand is offered at the following stores:</p>
                 <ul>
-                    {% for brand in brands %}
-                        <li><a href='/brand/{{ brand.getId }}'>{{ brand.getName }}</a></li>
+                    {% for store in stores %}
+                        <li><a href='/store/{{ store.getId }}'>{{ store.getName }}</a></li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -32,9 +32,6 @@
             </form>
 
 
-
-
-            <p><a href='/store/{{ store.getId }}/edit'>Edit this store name</a></p>
 
             <p><a href='/'>Home</a></p>
         </div>
