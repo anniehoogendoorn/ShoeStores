@@ -38,7 +38,7 @@
                 <p>Here's a list of brands:</p>
                     <ul>
                         {% for brand in brands %}
-                            <li><a href='/brands/{{ brand.getId }}'>{{ brand.getName }}</a></li>
+                            <li><a href='/brand/{{ brand.getId }}'>{{ brand.getName }}</a></li>
                         {% endfor %}
                     </ul>
                 {% else %}

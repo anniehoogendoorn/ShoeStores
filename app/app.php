@@ -4,6 +4,8 @@
     require_once __DIR__."/../src/Store.php";
     require_once __DIR__."/../src/Brand.php";
 
+    use Symfony\Component\Debug\Debug;
+    Debug::enable();
 
     $app = new Silex\Application();
 
@@ -75,9 +77,8 @@
     $app->post('/store/{id}/add_brand', function($id) use ($app) {
         $store = Store::findById($id);
         $brand_id = $_POST['brand_id'];
-    // var_dump($brand_id);
         $brand = Brand::findById($_POST['brand_id']);
-    // var_dump($brand);
+        var_dump($brand);
         $store->addBrand($brand);
         $brands = $store->getBrands();
         $all_brands = Brand::getAll();
@@ -89,12 +90,11 @@
     $app->post('/brand/{id}/add_store', function($id) use ($app) {
         $brand = Brand::findById($_POST['brand_id']);
         $store = Store::findById($_POST['store_id']);
-        $brand->addStore();
-        // $all_stores = $brand->getStores();
-        $stores = Brand::getAll();
+        $brand->addStore($store);
+        $stores = $brand->getStores();
+        $all_stores = Store::getAll();
 
-    return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores));
-
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores, 'all_stores' => $all_stores));
     });
 
     //Get page to edit one single store
@@ -112,8 +112,6 @@
         $all_brands = Brand::getAll();
 
         return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands, 'all_brands' => $all_brands));
-
-
     });
 
     //Delete one single store

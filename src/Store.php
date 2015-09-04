@@ -51,6 +51,7 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM stores;");
+            $GLOBALS['DB']->exec("DELETE FROM stores_brands;");
         }
 
 
@@ -85,7 +86,7 @@
         //Add a brand to a specific store and save in the join table
         function addBrand($brand)
         {
-            // echo $brand;
+            // var_dump ($brand);
             $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
         }
 
