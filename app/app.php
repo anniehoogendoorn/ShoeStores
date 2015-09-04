@@ -7,6 +7,8 @@
 
     $app = new Silex\Application();
 
+    $app['debug'] = true;
+
     $server = 'mysql:host=localhost:8889;dbname=shoes';
     $username = 'root';
     $password = 'root';
@@ -39,15 +41,15 @@
     });
 
     //Delete all stores from index page
-    $app->post('delete_stores', function() use ($app) {
+    $app->delete('delete_stores', function() use ($app) {
         Store::deleteAll();
-        return $app['twig']->render('index.html.twig', array( 'brands' => Brand::getAll()));
+        return $app['twig']->render('index.html.twig', array( 'brands' => Brand::getAll(), 'stores' => Store::getAll()));
     });
 
     //Delete all brands from index page
-    $app->post('delete_brands', function() use ($app) {
+    $app->delete('delete_brands', function() use ($app) {
         Brand::deleteAll();
-        return $app['twig']->render('index.html.twig', array( 'stores' => Store::getAll()));
+        return $app['twig']->render('index.html.twig', array( 'stores' => Store::getAll(), 'brands' => Store::getAll()));
     });
 
     //Get page of a specific store
@@ -62,23 +64,23 @@
     //Get page of specific brand
     $app->get('/brand/{id}', function($id) use ($app) {
         $brand = Brand::findById($id);
-        // $all_stores = $brand->getStores();
-        $stores = Store::getAll();
+        $stores = $brand->getStores();
+        $all_stores = Store::getAll();
 
-        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores));
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores, 'all_stores' => $all_stores));
 
     });
 
     //Add a brand to specific store
     $app->post('/store/{id}/add_brand', function($id) use ($app) {
         $store = Store::findById($id);
-    $brand_id = $_POST['brand_id'];
-    var_dump($brand_id);
+        $brand_id = $_POST['brand_id'];
+    // var_dump($brand_id);
         $brand = Brand::findById($_POST['brand_id']);
-        var_dump($brand);
+    // var_dump($brand);
         $store->addBrand($brand);
-        $all_brands = $store->getBrands();
-        // $brands = Brand::getAll();
+        $brands = $store->getBrands();
+        $all_brands = Brand::getAll();
 
         return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands, 'all_brands' => $all_brands));
     });
@@ -95,29 +97,34 @@
 
     });
 
+    //Get page to edit one single store
+    $app->get('/store/{id}/edit', function($id) use ($app) {
+        $store = Store::findById($id);
+        return $app['twig']->render('store_edit.html.twig', array('store' => $store));
+    });
 
-    //
-    // //Get page to edit one single store
-    // $app->get('/store/{id}/edit', function($id) use ($app) {
-    //     $store = Store::findById($id);
-    //     return $app['twig']->render('store_edit.html.twig', array('store' => $store));
-    // });
-    //
-    // //Edit one single store name
-    // $app->patch('/store/{id}', function($id) use ($app) {
-    //     $name = $_POST['name'];
-    //     $store = Store::findById($id);
-    //     $store->update($name);
-    //     return $app['twig']->render('store.html.twig', array('Store' => $store, 'brands' => $store->getBrands()));
-    // });
-    //
-    //
-    // //Delete one single store
-    // $app->delete('/store/{id}', function($id) use ($app) {
-    //     $store = Store::find($id);
-    //     $store->delete();
-    //     return $app['twig']->render('index.html.twig', array('stores' => Store::getAll()));
-    // });
+    //Edit one single store name
+    $app->patch('/store/{id}', function($id) use ($app) {
+        $name = $_POST['name'];
+        $store = Store::findById($id);
+        $store->update($name);
+        $brands = $store->getBrands();
+        $all_brands = Brand::getAll();
+
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands, 'all_brands' => $all_brands));
+
+
+    });
+
+    //Delete one single store
+    $app->delete('/store/{id}/delete', function($id) use ($app) {
+        $store = Store::findById($id);
+        $store->delete();
+        $brands = $store->getBrands();
+        $all_brands = Brand::getAll();
+
+        return $app['twig']->render('index.html.twig', array('stores' => Store::getAll(), 'brands' => Brand::getAll()));
+    });
 
     return $app;
 
