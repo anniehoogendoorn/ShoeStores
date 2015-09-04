@@ -78,6 +78,7 @@
         $store = Store::findById($id);
         $brand_id = $_POST['brand_id'];
         $brand = Brand::findById($_POST['brand_id']);
+        $brand->save();
         var_dump($brand);
         $store->addBrand($brand);
         $brands = $store->getBrands();
