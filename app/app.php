@@ -11,7 +11,7 @@
 
     $app['debug'] = true;
 
-    $server = 'mysql:host=localhost:8889;dbname=shoe-stores';
+    $server = 'mysql:host=localhost:8889;dbname=shoe_stores';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
