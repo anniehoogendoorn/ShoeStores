@@ -49,10 +49,10 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM brands;");
-            $GLOBALS['DB']->exec("DELETE FROM stores_brands;");
+            $GLOBALS['DB']->exec("DELETE FROM brands_stores;");
         }
 
-        static function findById($search_id)
+        static function find($search_id)
         {
             $found_brand = null;
             $brands = Brand::getAll();
@@ -69,14 +69,14 @@
         function addStore($store)
         {
             // var_dump($store);
-            $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO brands_stores (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
         }
 
         function getStores()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM
-                brands JOIN stores_brands ON (brands.id = stores_brands.brand_id)
-                    JOIN stores ON (stores_brands.store_id = stores.id)
+                brands JOIN brands_stores ON (brands.id = brands_stores.brand_id)
+                    JOIN stores ON (brands_stores.store_id = stores.id)
                     WHERE brands.id = {$this->getId()};"
                     );
 

@@ -6,61 +6,10 @@
     </head>
     <body>
         <div class='container'>
-            <h1>Shoe Stores and Brands</h1>
+            <h1>Find those f-ing shoes!</h1>
 
-            {% if stores is not empty %}
-                <p>Here's the list of shoe stores:</p>
-                <ul>
-                    {% for store in stores %}
-                        <li><a href="/store/{{ store.getId }}">{{ store.getName }}</a></li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>You have no stores yet!</p>
-            {% endif %}
-
-            <h3>Add a store:</h3>
-
-            <form action="/add_store" method="post">
-                <div class='form-group'>
-                    <!-- <label for="name">Store name:</label> -->
-                    <input id="name" name="name" class='form-control' type="text">
-                </div>
-                <button type="submit" class='btn btn-warning'>Add Store</button>
-            </form>
-
-            <form action='/delete_stores' method='post'>
-                <input name='_method' type='hidden' value='delete'>
-                <button type='submit' class='btn btn-danger'>Clear All </button>
-            </form>
-
-            {% if brands is not empty %}
-                <p>Here's a list of brands:</p>
-                    <ul>
-                        {% for brand in brands %}
-                            <li><a href='/brand/{{ brand.getId }}'>{{ brand.getName }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>You have no brands yet!</p>
-            {% endif %}
-
-            <h3>Add a brand:</h3>
-
-                <form action='/add_brand' method='post'>
-                    <div class='form-group'>
-                        <!-- <label for='name'>Brand Name</label> -->
-                        <input id='name' name='name' class='form-control' type='text'>
-                    </div>
-
-                    <button type='submit' class='btn btn-info'>Add brand</button>
-                </form>
-
-                <form action='/delete_brands' method='post'>
-                    <input name='_method' type='hidden' value='delete'>
-                    <button type='submit' class='btn btn-danger'>Clear All </button>
-                </form>
-
+            <h3><a href="/stores">Stores</a></h3>
+            <h3><a href="/brands">Brands</a></h3>
 
 
         </div>

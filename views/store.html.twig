@@ -20,23 +20,16 @@
                 <div class='form-group'>
                     <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
 
-                    <label for='brand_id'>Add a brand</label>
+                    <label for='brand_id'>Select a brand</label>
 
                     <select id='brand_id' class='selectpicker' type='text' name='brand_id'>
                         {% for brand in all_brands %}
                             <option value='{{ brand.getId }}'>{{ brand.getName }}</option>
                         {% endfor %}
                     </select>
-
-                    <!-- Regular input field -->
-                <div class='form-group'>
-                    <label for='brand_id'>Or enter a new brand</label>
-                    <input id='brand_id' class='form-control' type='text' name='brand_id'>
-                </div>
                 </div>
 
                 <button type='submit' class='btn btn-info'>Add</button>
-            <!-- </div> -->
             </form>
 
             <p><a href='/store/{{ store.getId }}/edit'>Edit this store name</a></p>
