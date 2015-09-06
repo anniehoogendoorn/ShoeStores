@@ -80,9 +80,9 @@
     });
 
     //Add a brand to specific store
-    $app->post('/store/{id}/add_brand', function() use ($app) {
+    $app->post('/store/{id}/add_brand', function($id) use ($app) {
         $brand = Brand::find($_POST['brand_id']);
-        $store = Store::find($_POST['brand_id']);
+        $store = Store::find($id);
         // var_dump($brand);
         $store->addBrand($brand);
 
@@ -99,6 +99,7 @@
 
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores, 'all_stores' => $all_stores));
     });
+
 
     //Get page to edit one single store
     $app->get('/store/{id}/edit', function($id) use ($app) {
