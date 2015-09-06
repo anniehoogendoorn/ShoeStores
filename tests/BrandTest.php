@@ -112,7 +112,7 @@
 
             //Act
             $search_id = $test_brand->getId();
-            $result = Brand::findById($search_id);
+            $result = Brand::find($search_id);
 
             //Assert
             $this->assertEquals($test_brand, $result);

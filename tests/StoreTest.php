@@ -116,7 +116,7 @@
 
             //Act
             $search_id = $test_store->getId();
-            $result = Store::findById($search_id);
+            $result = Store::find($search_id);
 
             //Assert
             $this->assertEquals($test_store, $result);
