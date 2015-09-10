@@ -59,7 +59,6 @@
 
         static function find($search_id)
         {
-
             $found_store = null;
             $stores = Store::getAll();
             foreach($stores as $store) {
@@ -67,8 +66,8 @@
                 if ($store_id == $search_id) {
                     $found_store = $store;
                 }
-                return $found_store;
             }
+            return $found_store;
         }
 
         //Delete a specific store name
