@@ -61,8 +61,8 @@
                 if ($brand_id == $search_id) {
                     $found_brand = $brand;
                 }
-                return $found_brand;
             }
+            return $found_brand;
 
         }
 
