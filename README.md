@@ -6,7 +6,7 @@ This app allows a user to make lists of local shoe stores and the brands of shoe
 
 ##Setup for OSX
 
-Clone project
+Clone project:
 
 1. Clone this repository using the command: `git clone https://github.com/anniehoogendoorn/ShoeStores.git`.
 2. Change directory into the top level of the project folder.

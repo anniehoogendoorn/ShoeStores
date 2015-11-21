@@ -9,7 +9,6 @@
         {
             $this->name = $name;
             $this->id = $id;
-            // var_dump($id);
         }
 
         function setName($new_name)
@@ -31,7 +30,6 @@
         {
             $GLOBALS['DB']->exec("INSERT INTO stores (name) VALUES ('{$this->getName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
-            // var_dump($this->id);
         }
 
         //Return all stores that are stored in the database table and save to an array as Store Objects
@@ -70,7 +68,7 @@
             return $found_store;
         }
 
-        //Delete a specific store name
+        //Update a specific store name
         function update($new_name)
         {
             $GLOBALS['DB']->exec("UPDATE stores SET name = '{$new_name}' WHERE id = {$this->getId()};");
@@ -91,23 +89,6 @@
             $GLOBALS['DB']->exec("INSERT INTO brands_stores (store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
         }
 
-        // function getBrands()
-        // {
-        //     $returned_brands = $GLOBALS['DB']->query("SELECT brands.* FROM
-        //         stores JOIN brands_stores ON (stores.id = brands_stores.store_id)
-        //                  JOIN brands ON (brands_stores.brand_id = brands.id)
-        //                  WHERE stores.id = {$this->getId()};");
-        //
-        //     $brands = array();
-        //     foreach($returned_brands as $brand) {
-        //         $name = $brand['name'];
-        //         $id = $brand['id'];
-        //         $new_brand = new Brand($name, $id);
-        //         array_push($brands, $new_brand);
-        //     }
-        //     return $brands;
-        // }
-
         function getBrands()
         {
            $returned_brands = $GLOBALS['DB']->query("SELECT brands.* FROM stores
@@ -124,13 +105,6 @@
            }
            return $brands;
         }
-
-
-
-
-
-
-
 
     }
 

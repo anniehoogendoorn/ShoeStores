@@ -76,7 +76,6 @@
         $brand = Brand::find($id);
 
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
-
     });
 
     //Add a brand to specific store
@@ -99,7 +98,6 @@
 
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores, 'all_stores' => $all_stores));
     });
-
 
     //Get page to edit one single store
     $app->get('/store/{id}/edit', function($id) use ($app) {

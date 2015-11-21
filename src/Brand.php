@@ -49,6 +49,7 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM brands;");
+            //As no brands exist, their id no longer references anything. This means that the current join table entries are meaningless, so:
             $GLOBALS['DB']->exec("DELETE FROM brands_stores;");
         }
 
@@ -63,15 +64,15 @@
                 }
             }
             return $found_brand;
-
         }
 
+        //Adds a store to the database
         function addStore($store)
         {
-            // var_dump($store);
             $GLOBALS['DB']->exec("INSERT INTO brands_stores (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
         }
 
+        //Gets stores from the database by id
         function getStores()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM
@@ -90,8 +91,5 @@
             return $stores;
 
         }
-
-
     }
-
 ?>
