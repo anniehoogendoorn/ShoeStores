@@ -66,7 +66,7 @@
             return $found_brand;
         }
 
-        //Adds a store to the database
+        //Add a store to specific brand and save in the join table
         function addStore($store)
         {
             $GLOBALS['DB']->exec("INSERT INTO brands_stores (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
