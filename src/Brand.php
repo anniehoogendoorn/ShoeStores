@@ -5,12 +5,14 @@
         private $name;
         private $id;
 
+        //Sets id to null initially, id will be added automatically in the database
         function __construct($name, $id = null)
         {
             $this->name = $name;
             $this->id = $id;
         }
 
+        //Set name as a string
         function setName($new_name)
         {
             $this->name = (string) $new_name;

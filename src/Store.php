@@ -5,6 +5,7 @@
         private $name;
         private $id;
 
+        //Set id to null initially, id will be added automatically in the database
         function __construct($name, $id = null)
         {
             $this->name = $name;
