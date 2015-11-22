@@ -11,6 +11,7 @@
             $this->id = $id;
         }
 
+        //Set name as a string
         function setName($new_name)
         {
             $this->name = (string) $new_name;
@@ -26,6 +27,7 @@
             return $this->id;
         }
 
+        //Save individual store name to stores table and auto assign an id
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO stores (name) VALUES ('{$this->getName()}');");
@@ -46,6 +48,7 @@
             return $stores;
         }
 
+        //Delete all stores from the stores table and brands_stores join table
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM stores;");
@@ -54,7 +57,7 @@
             $GLOBALS['DB']->exec("DELETE FROM brands_stores;");
         }
 
-
+        //Find a store by id
         static function find($search_id)
         {
             $found_store = null;
@@ -89,6 +92,7 @@
             $GLOBALS['DB']->exec("INSERT INTO brands_stores (store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
         }
 
+        //Get brands from the database by store id using a join statement
         function getBrands()
         {
            $returned_brands = $GLOBALS['DB']->query("SELECT brands.* FROM stores
@@ -105,7 +109,5 @@
            }
            return $brands;
         }
-
     }
-
 ?>
